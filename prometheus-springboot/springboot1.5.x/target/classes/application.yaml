@@ -1,0 +1,31 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: springboot1.5.x
+
+# 监控配置
+endpoints:
+  health:
+    enabled: true
+    sensitive: false
+  metrics:
+    enabled: true
+    sensitive: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+    jmx:
+      exposure:
+        include: '*'
+    shutdown:
+      enabled: true
+  metrics:
+    distribution:
+      percentiles-histogram[http.server.requests]: true
+    tags:
+      application: ${spring.application.name}
+  security:
+    enabled: false
