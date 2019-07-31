@@ -6,8 +6,12 @@ spring:
 management:
   endpoints:
     web:
+      base-path: /actuator # 2.x 默认为 /actuator
       exposure:
         include: 'prometheus'
+    jmx:
+      exposure:
+        include: '*'
   metrics:
     tags:
       application: ${spring.application.name}
