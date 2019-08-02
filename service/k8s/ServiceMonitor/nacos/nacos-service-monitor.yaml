@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: nacos-service-monitor
+  namespace: prometheus-operator
+  labels:
+    app: prometheus-operator-prometheus
+    chart: prometheus-operator-5.12.3
+    heritage: Tiller
+    release: prometheus-operator
+spec:
+  # 选择器
+  selector:
+    matchLabels:
+      app: nacos
+  #
+  endpoints:
+    - path: /nacos/actuator/prometheus
+      port: server
+  namespaceSelector:
+    matchNames:
+      - nacos

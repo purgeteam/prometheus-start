@@ -3,6 +3,9 @@
 ![Docker Pulls](https://img.shields.io/docker/pulls/nacos/nacos-server.svg?maxAge=60480)
 
 ### 教程链接
+- Helm Prometheus Operator 15分钟搞定Kubernetes集群监控
+- https://www.jianshu.com/p/973cbbbaab22
+
 - springboot 2.0.x
 http://www.itmuch.com/spring-boot/actuator-prometheus-grafana/
 

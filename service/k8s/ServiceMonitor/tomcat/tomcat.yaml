@@ -1,0 +1,57 @@
+kind: Service
+metadata:
+  name: tomcat
+  labels:
+    app: tomcat
+  namespace: monitor
+spec:
+  selector:
+    app: tomcat
+  ports:
+    - name: web123
+      targetPort: 8080
+      port: 8080
+    - name: ajp
+      targetPort: 8009
+      port: 8009
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat
+  labels:
+    app: tomcat
+  namespace: monitor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tomcat
+  template:
+    metadata:
+      labels:
+        app: tomcat
+    spec:
+      containers:
+        - name: tomcat
+          image: registry.mindsphere.cn/library/tomcat
+          ports:
+            - name: http
+              containerPort: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-tomcat
+  namespace: monitor
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+    - host: tomcat.mindsphere.cn
+      http:
+        paths:
+          - path:
+            backend:
+              serviceName: tomcat
+              servicePort: 8080
